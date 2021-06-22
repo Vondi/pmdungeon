@@ -5,6 +5,10 @@ apply plugin: "application"
 apply plugin: "pmd"
 apply plugin: "jacoco"
 
+pmd {
+    ignoreFailures(true)
+}
+
 sourceCompatibility = 1.11
 
 sourceSets.main.java.srcDirs = ["src"]
@@ -36,7 +40,7 @@ dependencies {
     api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
     api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
     api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testImplementation "org.mockito:mockito-core:3.+"
 }
@@ -45,5 +49,13 @@ jar {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging.showStandardStreams = true
+    testLogging {
+        events "passed", "skipped", "failed"
     }
 }
