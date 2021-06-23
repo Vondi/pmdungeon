@@ -4,6 +4,7 @@ import de.pmdungeon.interfaces.IEntity;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 
@@ -15,28 +16,43 @@ class EntityControllerTest {
 
     class CharacterDeletabelTrue implements IEntity {
         @Override
-        public void update() {}
+        public void update() {
+        }
 
         @Override
         public boolean deleteable() {
             return true;
         }
     }
+
     class CharacterDeletabelFalse implements IEntity {
         @Override
-        public void update() {}
+        public void update() {
+        }
 
         @Override
         public boolean deleteable() {
             return false;
         }
     }
-    class HeldTrue extends CharacterDeletabelTrue {}
-    class HeldFalse extends CharacterDeletabelFalse {}
-    class HelferTrue extends CharacterDeletabelTrue {}
-    class HelferFalse extends CharacterDeletabelFalse {}
-    class MonsterTrue extends CharacterDeletabelTrue {}
-    class MonsterFalse extends CharacterDeletabelFalse {}
+
+    class HeldTrue extends CharacterDeletabelTrue {
+    }
+
+    class HeldFalse extends CharacterDeletabelFalse {
+    }
+
+    class HelferTrue extends CharacterDeletabelTrue {
+    }
+
+    class HelferFalse extends CharacterDeletabelFalse {
+    }
+
+    class MonsterTrue extends CharacterDeletabelTrue {
+    }
+
+    class MonsterFalse extends CharacterDeletabelFalse {
+    }
 
     @BeforeEach
     void setUp() {
@@ -51,7 +67,7 @@ class EntityControllerTest {
 
         // then
         ArrayList<IEntity> expected = new ArrayList<>();
-        assertEquals(result, expected);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -69,7 +85,7 @@ class EntityControllerTest {
 
         // then
         ArrayList<IEntity> expected = new ArrayList<>();
-        assertEquals(result, expected);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -102,7 +118,7 @@ class EntityControllerTest {
         expected.add(Helfer1);
         expected.add(Monster1);
 
-        assertEquals(result, expected);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -133,32 +149,196 @@ class EntityControllerTest {
         expected.add(HelferF);
         expected.add(MonsterF);
 
-        assertEquals(result, expected);
+        assertEquals(expected, result);
     }
 
     @Test
     void addEntityEmptyListAddEmptyList() {
+        // given
 
+        // when
+        underTest.addEntity(null);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+        System.out.println("resulst:" + result);
+        System.out.println("expected:" + expected);
+        assertEquals(expected, result);
     }
 
     @Test
     void addEntityEmptyListAddIEntityElement() {
+        // given
+        IEntity Held = new HeldTrue();
 
+        // when
+        underTest.addEntity(Held);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+        expected.add(Held);
+
+        assertEquals(expected, result);
     }
 
     @Test
     void addEntityNotEmptyListAddEmptyList() {
+        // given
+        IEntity Held = new HeldTrue();
+        IEntity Helfer = new HelferTrue();
+        IEntity Monster = new MonsterTrue();
+
+        // when
+        underTest.addEntity(Held);
+        underTest.addEntity(Helfer);
+        underTest.addEntity(Monster);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+        expected.add(Held);
+        expected.add(Helfer);
+        expected.add(Monster);
+
+        assertEquals(expected, result);
+
+        //given
+
+        // when
+        underTest.addEntity(null);
+        result = underTest.getList();
+
+        // then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void addEntityNotEmptyListAddIEntityElement() {
+        // given
+        IEntity Held = new HeldTrue();
+        IEntity Helfer = new HelferTrue();
+        IEntity Monster = new MonsterTrue();
+
+        // when
+        underTest.addEntity(Held);
+        underTest.addEntity(Helfer);
+        underTest.addEntity(Monster);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+        expected.add(Held);
+        expected.add(Helfer);
+        expected.add(Monster);
+
+        assertEquals(expected, result);
+
+        //given
+        IEntity Held1 = new HelferTrue();
+
+        // when
+        underTest.addEntity(Held1);
+        result = underTest.getList();
+
+        // then
+        expected.add(Held1);
+
+        assertEquals(expected, result);
+
 
     }
 
     @Test
-    void addEntityNotEmpltyListAddIEntityElement() {
+    void addEntityNotEmptlyListAddExistingElement() {
+        // given
+        IEntity Held = new HeldTrue();
+        IEntity Helfer = new HelferTrue();
+        IEntity Monster = new MonsterTrue();
 
+        // when
+        underTest.addEntity(Held);
+        underTest.addEntity(Helfer);
+        underTest.addEntity(Monster);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+        expected.add(Held);
+        expected.add(Helfer);
+        expected.add(Monster);
+
+        assertEquals(expected, result);
+
+        // given
+
+        // when
+        underTest.addEntity(Held);
+        underTest.getList();
+
+        // then
+        assertEquals(expected, result);
     }
 
     @Test
-    void removeEntity() {
+    void removeEntityEmptyListRemoveEmptyElement() {
+        // given
+        ArrayList<IEntity> expected = underTest.getList();
+
+        // when
+        underTest.removeEntity(null);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        assertEquals(expected, result);
     }
+
+    @Test
+    void removeEntityEmptyListRemoveIEntityElement() {
+        // given
+        IEntity Held = new HelferTrue();
+        ArrayList<IEntity> expected = underTest.getList();
+
+        // when
+        underTest.removeEntity(Held);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void removeEntityNotEmptyListRemoveEmptyElement() {
+            // given
+            IEntity Held = new HeldTrue();
+            IEntity Helfer = new HelferTrue();
+            IEntity Monster = new MonsterTrue();
+
+            // when
+            underTest.addEntity(Held);
+            underTest.addEntity(Helfer);
+            underTest.addEntity(Monster);
+            ArrayList<IEntity> result = underTest.getList();
+
+            // then
+            ArrayList<IEntity> expected = new ArrayList<>();
+            expected.add(Held);
+            expected.add(Helfer);
+            expected.add(Monster);
+
+            assertEquals(expected, result);
+
+            // when
+            underTest.removeEntity(null);
+            result = underTest.getList();
+
+            // then
+            assertEquals(expected, result);
+    }
+
+    @Test
+    void
 
     @Test
     void removeAll() {
