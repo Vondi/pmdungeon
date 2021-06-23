@@ -402,14 +402,52 @@ class EntityControllerTest {
     }
 
     @Test
-    void removeAll() {
+    void removeAllEmptyList() {
+        // given
+
+        // when
+        underTest.removeAll();
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void removeAllNotEmptyList() {
+        // given
+        IEntity Held = new HeldTrue();
+        IEntity Helfer = new HelferTrue();
+        IEntity Monster = new MonsterTrue();
+
+        // when
+        underTest.addEntity(Held);
+        underTest.addEntity(Helfer);
+        underTest.addEntity(Monster);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+        expected.add(Held);
+        expected.add(Helfer);
+        expected.add(Monster);
+
+        assertEquals(expected, result);
+
+        // when
+        underTest.removeAll();
+        result = underTest.getList();
+
+        // then
+        expected.clear();
+
+        assertEquals(expected, result);
     }
 
     @Test
     void removeAllFrom() {
     }
 
-    @Test
-    void getList() {
-    }
 }
