@@ -338,7 +338,68 @@ class EntityControllerTest {
     }
 
     @Test
-    void
+    void removeEntityNotEmptyListRemoveNotExistingIEntityElement() {
+        // given
+        IEntity Held = new HeldTrue();
+        IEntity Helfer = new HelferTrue();
+        IEntity Monster = new MonsterTrue();
+
+        // when
+        underTest.addEntity(Held);
+        underTest.addEntity(Helfer);
+        underTest.addEntity(Monster);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+        expected.add(Held);
+        expected.add(Helfer);
+        expected.add(Monster);
+
+        assertEquals(expected, result);
+
+        // given
+        IEntity HeldDoesNotExist = new HelferTrue();
+
+        // when
+        underTest.removeEntity(HeldDoesNotExist);
+        result = underTest.getList();
+
+        // then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void removeEntityNotEmptyListRemoveExistingIEntityElement() {
+        // given
+        IEntity Held = new HeldTrue();
+        IEntity Helfer = new HelferTrue();
+        IEntity Monster = new MonsterTrue();
+
+        // when
+        underTest.addEntity(Held);
+        underTest.addEntity(Helfer);
+        underTest.addEntity(Monster);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+        expected.add(Held);
+        expected.add(Helfer);
+        expected.add(Monster);
+
+        assertEquals(expected, result);
+
+        // given
+
+        // when
+        underTest.removeEntity(Helfer);
+
+        // then
+        expected.remove(Helfer);
+
+        assertEquals(expected, result);
+    }
 
     @Test
     void removeAll() {
