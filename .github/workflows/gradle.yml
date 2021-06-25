@@ -30,3 +30,4 @@ jobs:
 
     - name: PMD Source Code Analyzer Action
       uses: sfdx-actions/setup-pmd@v1
+      run: pmd -d ./force-app/main/default/classes -R category/apex/design.xml -f text
