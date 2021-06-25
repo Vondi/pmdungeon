@@ -29,6 +29,6 @@ jobs:
       run: ./gradlew build
 
     - name: PMD Source Code Analyzer Action
-    - uses: sfdx-actions/setup-pmd@v1
+      uses: sfdx-actions/setup-pmd@v1
       with:
           report_paths: '**/build/test-results/test/TEST-*.xml'
