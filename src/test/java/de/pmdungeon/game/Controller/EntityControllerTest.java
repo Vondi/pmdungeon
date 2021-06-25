@@ -447,7 +447,165 @@ class EntityControllerTest {
     }
 
     @Test
-    void removeAllFrom() {
+    void removeAllFromEmptyListRemoveEmptyClass() {
+        // given
+
+        // when
+        underTest.removeAllFrom(null);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+
+        assertEquals(expected, result);
     }
 
+    @Test
+    void removeAllFromEmptyListRemoveNotExistingClass() {
+        // given
+
+        // when
+        underTest.removeAllFrom(HelferTrue.class);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+
+        assertEquals(expected, result);
+
+    }
+
+    @Test
+    void removeAllFromNotEmptyDiffernetClassesListRemoveNotExistingClass() {
+        // given
+        IEntity Held = new HeldTrue();
+        IEntity Helfer = new HelferTrue();
+        IEntity Monster = new MonsterTrue();
+
+        // when
+        underTest.addEntity(Held);
+        underTest.addEntity(Helfer);
+        underTest.addEntity(Monster);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+        expected.add(Held);
+        expected.add(Helfer);
+        expected.add(Monster);
+
+        assertEquals(expected, result);
+
+        // given
+        expected = result;
+
+        // when
+        underTest.removeAllFrom(HeldFalse.class);
+        result = underTest.getList();
+
+        // then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void removeAllFromNotEmptyDifferentClassesListRemoveExistingClass() {
+        // given
+        IEntity Held = new HeldTrue();
+        IEntity Helfer = new HelferTrue();
+        IEntity Monster = new MonsterTrue();
+
+        // when
+        underTest.addEntity(Held);
+        underTest.addEntity(Helfer);
+        underTest.addEntity(Monster);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+        expected.add(Held);
+        expected.add(Helfer);
+        expected.add(Monster);
+
+        assertEquals(expected, result);
+
+        // when
+        underTest.removeAllFrom(HelferTrue.class);
+        result = underTest.getList();
+
+        // then
+        expected.remove(Helfer);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void removeAllFromNotEmptySameClassesListRemoveNotExistingClass() {
+        // given
+        IEntity Helfer = new HelferTrue();
+        IEntity Helfer1 = new HelferTrue();
+        IEntity Helfer2 = new HelferTrue();
+        IEntity Helfer3 = new HelferTrue();
+
+        // when
+        underTest.addEntity(Helfer);
+        underTest.addEntity(Helfer1);
+        underTest.addEntity(Helfer2);
+        underTest.addEntity(Helfer3);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+        expected.add(Helfer);
+        expected.add(Helfer1);
+        expected.add(Helfer2);
+        expected.add(Helfer3);
+
+        assertEquals(expected, result);
+
+        // given
+
+        // when
+        underTest.removeAllFrom(HeldFalse.class);
+        result = underTest.getList();
+
+        // then
+        assertEquals(expected, result);
+
+    }
+
+    @Test
+    void removeAllFromNotEmptySameClassesListRemoveExistingClass() {
+        // given
+        IEntity Helfer = new HelferTrue();
+        IEntity Helfer1 = new HelferTrue();
+        IEntity Helfer2 = new HelferTrue();
+        IEntity Helfer3 = new HelferTrue();
+
+        // when
+        underTest.addEntity(Helfer);
+        underTest.addEntity(Helfer1);
+        underTest.addEntity(Helfer2);
+        underTest.addEntity(Helfer3);
+        ArrayList<IEntity> result = underTest.getList();
+
+        // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+        expected.add(Helfer);
+        expected.add(Helfer1);
+        expected.add(Helfer2);
+        expected.add(Helfer3);
+
+        assertEquals(expected, result);
+
+        // given
+
+        // when
+        underTest.removeAllFrom(HelferTrue.class);
+        result = underTest.getList();
+
+        // then
+        expected = new ArrayList<>();
+
+        assertEquals(expected, result);
+    }
 }
