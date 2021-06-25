@@ -129,7 +129,6 @@ class EntityControllerTest {
         IEntity HelferT = new HelferTrue();
         IEntity MonsterT = new MonsterTrue();
 
-
         underTest.addEntity(HeldF);
         underTest.addEntity(HeldT);
         underTest.addEntity(HelferT);
@@ -152,16 +151,13 @@ class EntityControllerTest {
 
     @Test
     void addEntityEmptyListAddEmptyList() {
-        // given
-
         // when
         underTest.addEntity(null);
         ArrayList<IEntity> result = underTest.getList();
 
         // then
         ArrayList<IEntity> expected = new ArrayList<>();
-        System.out.println("resulst:" + result);
-        System.out.println("expected:" + expected);
+
         assertEquals(expected, result);
     }
 
@@ -188,10 +184,12 @@ class EntityControllerTest {
         IEntity Helfer = new HelferTrue();
         IEntity Monster = new MonsterTrue();
 
-        // when
         underTest.addEntity(Held);
         underTest.addEntity(Helfer);
         underTest.addEntity(Monster);
+
+        // when
+        underTest.addEntity(null);
         ArrayList<IEntity> result = underTest.getList();
 
         // then
@@ -200,15 +198,6 @@ class EntityControllerTest {
         expected.add(Helfer);
         expected.add(Monster);
 
-        assertEquals(expected, result);
-
-        //given
-
-        // when
-        underTest.addEntity(null);
-        result = underTest.getList();
-
-        // then
         assertEquals(expected, result);
     }
 
@@ -219,10 +208,14 @@ class EntityControllerTest {
         IEntity Helfer = new HelferTrue();
         IEntity Monster = new MonsterTrue();
 
-        // when
         underTest.addEntity(Held);
         underTest.addEntity(Helfer);
         underTest.addEntity(Monster);
+
+        IEntity Held1 = new HelferTrue();
+
+        // when
+        underTest.addEntity(Held1);
         ArrayList<IEntity> result = underTest.getList();
 
         // then
@@ -230,17 +223,6 @@ class EntityControllerTest {
         expected.add(Held);
         expected.add(Helfer);
         expected.add(Monster);
-
-        assertEquals(expected, result);
-
-        //given
-        IEntity Held1 = new HelferTrue();
-
-        // when
-        underTest.addEntity(Held1);
-        result = underTest.getList();
-
-        // then
         expected.add(Held1);
 
         assertEquals(expected, result);
@@ -255,10 +237,12 @@ class EntityControllerTest {
         IEntity Helfer = new HelferTrue();
         IEntity Monster = new MonsterTrue();
 
-        // when
         underTest.addEntity(Held);
         underTest.addEntity(Helfer);
         underTest.addEntity(Monster);
+
+        // when
+        underTest.addEntity(Held);
         ArrayList<IEntity> result = underTest.getList();
 
         // then
@@ -268,27 +252,17 @@ class EntityControllerTest {
         expected.add(Monster);
 
         assertEquals(expected, result);
-
-        // given
-
-        // when
-        underTest.addEntity(Held);
-        underTest.getList();
-
-        // then
-        assertEquals(expected, result);
     }
 
     @Test
     void removeEntityEmptyListRemoveEmptyElement() {
-        // given
-        ArrayList<IEntity> expected = underTest.getList();
-
         // when
         underTest.removeEntity(null);
         ArrayList<IEntity> result = underTest.getList();
 
         // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+
         assertEquals(expected, result);
     }
 
@@ -296,13 +270,14 @@ class EntityControllerTest {
     void removeEntityEmptyListRemoveIEntityElement() {
         // given
         IEntity Held = new HelferTrue();
-        ArrayList<IEntity> expected = underTest.getList();
 
         // when
         underTest.removeEntity(Held);
         ArrayList<IEntity> result = underTest.getList();
 
         // then
+        ArrayList<IEntity> expected = new ArrayList<>();
+
         assertEquals(expected, result);
     }
 
@@ -313,10 +288,12 @@ class EntityControllerTest {
             IEntity Helfer = new HelferTrue();
             IEntity Monster = new MonsterTrue();
 
-            // when
             underTest.addEntity(Held);
             underTest.addEntity(Helfer);
             underTest.addEntity(Monster);
+
+            // when
+            underTest.removeEntity(null);
             ArrayList<IEntity> result = underTest.getList();
 
             // then
@@ -325,13 +302,6 @@ class EntityControllerTest {
             expected.add(Helfer);
             expected.add(Monster);
 
-            assertEquals(expected, result);
-
-            // when
-            underTest.removeEntity(null);
-            result = underTest.getList();
-
-            // then
             assertEquals(expected, result);
     }
 
@@ -342,10 +312,15 @@ class EntityControllerTest {
         IEntity Helfer = new HelferTrue();
         IEntity Monster = new MonsterTrue();
 
-        // when
         underTest.addEntity(Held);
         underTest.addEntity(Helfer);
         underTest.addEntity(Monster);
+
+        // given
+        IEntity HeldDoesNotExist = new HelferTrue();
+
+        // when
+        underTest.removeEntity(HeldDoesNotExist);
         ArrayList<IEntity> result = underTest.getList();
 
         // then
@@ -354,16 +329,6 @@ class EntityControllerTest {
         expected.add(Helfer);
         expected.add(Monster);
 
-        assertEquals(expected, result);
-
-        // given
-        IEntity HeldDoesNotExist = new HelferTrue();
-
-        // when
-        underTest.removeEntity(HeldDoesNotExist);
-        result = underTest.getList();
-
-        // then
         assertEquals(expected, result);
     }
 
@@ -374,35 +339,24 @@ class EntityControllerTest {
         IEntity Helfer = new HelferTrue();
         IEntity Monster = new MonsterTrue();
 
-        // when
         underTest.addEntity(Held);
         underTest.addEntity(Helfer);
         underTest.addEntity(Monster);
+
+        // when
+        underTest.removeEntity(Helfer);
         ArrayList<IEntity> result = underTest.getList();
 
         // then
         ArrayList<IEntity> expected = new ArrayList<>();
         expected.add(Held);
-        expected.add(Helfer);
         expected.add(Monster);
-
-        assertEquals(expected, result);
-
-        // given
-
-        // when
-        underTest.removeEntity(Helfer);
-
-        // then
-        expected.remove(Helfer);
 
         assertEquals(expected, result);
     }
 
     @Test
     void removeAllEmptyList() {
-        // given
-
         // when
         underTest.removeAll();
         ArrayList<IEntity> result = underTest.getList();
@@ -420,34 +374,22 @@ class EntityControllerTest {
         IEntity Helfer = new HelferTrue();
         IEntity Monster = new MonsterTrue();
 
-        // when
         underTest.addEntity(Held);
         underTest.addEntity(Helfer);
         underTest.addEntity(Monster);
+
+        // when
+        underTest.removeAll();
         ArrayList<IEntity> result = underTest.getList();
 
         // then
         ArrayList<IEntity> expected = new ArrayList<>();
-        expected.add(Held);
-        expected.add(Helfer);
-        expected.add(Monster);
-
-        assertEquals(expected, result);
-
-        // when
-        underTest.removeAll();
-        result = underTest.getList();
-
-        // then
-        expected.clear();
 
         assertEquals(expected, result);
     }
 
     @Test
     void removeAllFromEmptyListRemoveEmptyClass() {
-        // given
-
         // when
         underTest.removeAllFrom(null);
         ArrayList<IEntity> result = underTest.getList();
@@ -460,8 +402,6 @@ class EntityControllerTest {
 
     @Test
     void removeAllFromEmptyListRemoveNotExistingClass() {
-        // given
-
         // when
         underTest.removeAllFrom(HelferTrue.class);
         ArrayList<IEntity> result = underTest.getList();
@@ -480,10 +420,12 @@ class EntityControllerTest {
         IEntity Helfer = new HelferTrue();
         IEntity Monster = new MonsterTrue();
 
-        // when
         underTest.addEntity(Held);
         underTest.addEntity(Helfer);
         underTest.addEntity(Monster);
+
+        // when
+        underTest.removeAllFrom(HeldFalse.class);
         ArrayList<IEntity> result = underTest.getList();
 
         // then
@@ -492,16 +434,6 @@ class EntityControllerTest {
         expected.add(Helfer);
         expected.add(Monster);
 
-        assertEquals(expected, result);
-
-        // given
-        expected = result;
-
-        // when
-        underTest.removeAllFrom(HeldFalse.class);
-        result = underTest.getList();
-
-        // then
         assertEquals(expected, result);
     }
 
@@ -512,26 +444,18 @@ class EntityControllerTest {
         IEntity Helfer = new HelferTrue();
         IEntity Monster = new MonsterTrue();
 
-        // when
         underTest.addEntity(Held);
         underTest.addEntity(Helfer);
         underTest.addEntity(Monster);
+
+        // when
+        underTest.removeAllFrom(HelferTrue.class);
         ArrayList<IEntity> result = underTest.getList();
 
         // then
         ArrayList<IEntity> expected = new ArrayList<>();
         expected.add(Held);
-        expected.add(Helfer);
         expected.add(Monster);
-
-        assertEquals(expected, result);
-
-        // when
-        underTest.removeAllFrom(HelferTrue.class);
-        result = underTest.getList();
-
-        // then
-        expected.remove(Helfer);
 
         assertEquals(expected, result);
     }
@@ -544,11 +468,13 @@ class EntityControllerTest {
         IEntity Helfer2 = new HelferTrue();
         IEntity Helfer3 = new HelferTrue();
 
-        // when
         underTest.addEntity(Helfer);
         underTest.addEntity(Helfer1);
         underTest.addEntity(Helfer2);
         underTest.addEntity(Helfer3);
+
+        // when
+        underTest.removeAllFrom(HeldFalse.class);
         ArrayList<IEntity> result = underTest.getList();
 
         // then
@@ -558,15 +484,6 @@ class EntityControllerTest {
         expected.add(Helfer2);
         expected.add(Helfer3);
 
-        assertEquals(expected, result);
-
-        // given
-
-        // when
-        underTest.removeAllFrom(HeldFalse.class);
-        result = underTest.getList();
-
-        // then
         assertEquals(expected, result);
 
     }
@@ -579,30 +496,18 @@ class EntityControllerTest {
         IEntity Helfer2 = new HelferTrue();
         IEntity Helfer3 = new HelferTrue();
 
-        // when
         underTest.addEntity(Helfer);
         underTest.addEntity(Helfer1);
         underTest.addEntity(Helfer2);
         underTest.addEntity(Helfer3);
+
+
+        // when
+        underTest.removeAllFrom(HelferTrue.class);
         ArrayList<IEntity> result = underTest.getList();
 
         // then
         ArrayList<IEntity> expected = new ArrayList<>();
-        expected.add(Helfer);
-        expected.add(Helfer1);
-        expected.add(Helfer2);
-        expected.add(Helfer3);
-
-        assertEquals(expected, result);
-
-        // given
-
-        // when
-        underTest.removeAllFrom(HelferTrue.class);
-        result = underTest.getList();
-
-        // then
-        expected = new ArrayList<>();
 
         assertEquals(expected, result);
     }
