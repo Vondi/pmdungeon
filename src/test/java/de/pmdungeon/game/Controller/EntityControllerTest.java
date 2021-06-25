@@ -231,7 +231,7 @@ class EntityControllerTest {
     }
 
     @Test
-    void addEntityNotEmptlyListAddExistingElement() {
+    void addEntityNotEmptyListAddExistingElement() {
         // given
         IEntity Held = new HeldTrue();
         IEntity Helfer = new HelferTrue();
