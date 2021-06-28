@@ -31,10 +31,10 @@ jobs:
       needs: build
       runs-on: ubuntu-latest
       steps:
+      - uses: sfdx-actions/setup-pmd@v1
       - name: Publish Test Report
-        uses: sfdx-actions/setup-pmd@v1
-        with:
-          report_paths: '*/reports/PMD/TEST-*.xml'
+        run: pmd -d ./pmdungeon/src/de/pmdungeon/game/Controller/ -R category/apex/design.xml -f text
+        
 
   JUnitTests:
     name: Run Tests
