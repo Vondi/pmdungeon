@@ -9,6 +9,12 @@ pmd {
     ignoreFailures(true)
 }
 
+jacocoTestReport {
+    reports {
+        csv.enabled(true)
+    }
+}
+
 sourceCompatibility = 1.11
 
 sourceSets.main.java.srcDirs = ["src"]
