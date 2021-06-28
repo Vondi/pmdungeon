@@ -36,8 +36,7 @@ jobs:
         
       - uses: sfdx-actions/setup-pmd@v1
       - name: Publish Test Report
-        run: pmd -d ./pmdungeon/src/de/pmdungeon/game/Controller/ -R rulesets/java/quickstart.xml -f textcolor
-        
+        run: pmd -dir ./pmdungeon/src/de/pmdungeon/game/Controller -f html -rulesets rulesets/java/quickstart.xml,category/java/codestyle.xml        
 
   JUnitTests:
     name: Run Tests
