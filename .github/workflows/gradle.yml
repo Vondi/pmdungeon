@@ -71,7 +71,7 @@ jobs:
         uses: synergy-au/pmd-analyser-action@v2
         with:
           pmd-version: '6.32.0'
-          file-path: './pmdungeon/src/de/pmdungeon/game/Controller'
+          file-path: './pmdungeon/src/de/pmdungeon/game/Controller/'
           rules-path: 'category/java/codestyle.xml/UnnecessaryModifier'
       - name: Upload results to GitHub
         uses: github/codeql-action/upload-sarif@v1
