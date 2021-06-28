@@ -11,9 +11,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
@@ -26,9 +24,25 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build -x test
 
-    - name: PMD Source Code Analyzer Action
-      uses: sfdx-actions/setup-pmd@v1
-      with:
-          report_paths: '**/build/test-results/test/TEST-*.xml'
+  pmd:
+      name: PMD Source Code Analyzer Action
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+      - uses: sfdx-actions/setup-pmd@v1
+      - name: Publish Test Report
+        run: pmd -d ./pmdungeon/src/de/pmdungeon/game/Controller/ -R category/apex/design.xml -f text
+        
+
+  JUnitTests:
+    name: Run Tests
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+        
+      - name: Run Tests
+        run: ./gradlew test --tests EntityControllerTest
