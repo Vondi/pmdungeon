@@ -73,6 +73,7 @@ jobs:
           pmd-version: '6.32.0'
           file-path: './pmdungeon/src/de/pmdungeon/game/Controller/EntityController.java'
           rules-path: 'category/java/codestyle.xml/UnnecessaryModifier'
+          analyse-all-code: true
       - name: Upload results to GitHub
         uses: github/codeql-action/upload-sarif@v1
         with:
