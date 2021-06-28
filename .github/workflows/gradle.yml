@@ -31,10 +31,12 @@ jobs:
       needs: build
       runs-on: ubuntu-latest
       steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+        
       - uses: sfdx-actions/setup-pmd@v1
       - name: Publish Test Report
-        run: pmd -d ./pmdungeon/src/de/pmdungeon/game/Controller/ -R category/apex/design.xml -f text
-        
+        run: pmd -dir ./pmdungeon/src/de/pmdungeon/game/Controller -f html -rulesets rulesets/java/quickstart.xml,category/java/codestyle.xml        
 
   JUnitTests:
     name: Run Tests
