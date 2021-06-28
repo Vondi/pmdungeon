@@ -71,7 +71,7 @@ jobs:
         uses: synergy-au/pmd-analyser-action@v2
         with:
           pmd-version: '6.32.0'
-          file-path: 'pmdungeon/src/de/pmdungeon/game/Controller/EntityController.java'
+          file-path: 'src/de/pmdungeon/game/Controller/EntityController.java'
           rules-path: 'category/java/codestyle.xml/UnnecessaryModifier'
           analyse-all-code: true
       - name: Upload results to GitHub
