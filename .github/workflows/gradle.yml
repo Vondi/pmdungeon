@@ -45,7 +45,7 @@ jobs:
         with:
           pmd-version: '6.32.0'
           file-path: './pmdungeon/src/de/pmdungeon/game/Controller'
-          rules-path: 'category/java/codestyle.xml/UnnecessaryModifier'
+          rules-path: 'rulesets/java/quickstart.xml'
       - name: Upload results to GitHub
         uses: github/codeql-action/upload-sarif@v1
         with:
