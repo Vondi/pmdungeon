@@ -36,7 +36,7 @@ jobs:
         
       - uses: sfdx-actions/setup-pmd@v1
       - name: Publish Test Report
-        run: ./gradlew pmdMain
+        run: pmd -d ./pmdungeon/src/de/pmdungeon/game/Controller/ -R rulesets/java/quickstart.xml -f textcolor
         
 
   JUnitTests:
