@@ -48,3 +48,14 @@ jobs:
         
       - name: Run Tests
         run: ./gradlew test --tests EntityControllerTest
+        
+  Jacoco:
+    name: Bla
+    needs: JUnitTests
+    runs-on: ubuntu-lastest
+    steps:
+      - name: jacoco-badge-generator
+      # You may pin to the exact commit or the version.
+      # uses: cicirello/jacoco-badge-generator@2cbc974b0ac74ac3eeddce77fcf65a8b40b9c168
+        uses: cicirello/jacoco-badge-generator@v2.3.0
+       
