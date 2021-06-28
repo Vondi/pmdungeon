@@ -77,7 +77,7 @@ jobs:
       - name: Upload results to GitHub
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: ci_output/pmd-output.sarif
+          sarif_file: pmd-output.sarif
       - name: No PMD Errors?
         run: |
           if ${{ steps.pmd-analysis.outputs.error-found }}
