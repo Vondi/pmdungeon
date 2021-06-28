@@ -1,6 +1,7 @@
 package de.pmdungeon.game.Controller;
 
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.pmdungeon.desktop.DesktopLauncher;
 import de.pmdungeon.dungeonCreator.DungeonWorld;
 import de.pmdungeon.dungeonCreator.dungeonconverter.DungeonConverter;
@@ -31,30 +32,35 @@ class LevelControllerTest {
 
     @BeforeEach
     void setUp() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        // Initialize Game with spys to check if methods get called
         mainController = spy(new MainController());
         Method onLevelLoad = mainController.getClass().getMethod("onLevelLoad");
         levelControllerSpy = spy(new LevelController(onLevelLoad, mainController, args));
         dungeonSpy = spy(new DungeonConverter().dungeonFromJson(Constants.STARTLEVEL));
         dungeonOld = levelControllerSpy.getDungeon();
         levelControllerSpy.loadDungeon(dungeonSpy);
+
+        // Mock behaviour of methods to bypass exceptions from libGDX
+        doNothing().when(dungeonSpy).renderFloor(isA(SpriteBatch.class));
+        doNothing().when(dungeonSpy).renderWalls(isA(Integer.class), isA(Integer.class), isA(SpriteBatch.class));
     }
 
     // loadDungeon START
 
     @Test
-    @DisplayName("Check if new dungeonWorld is loaded")
+    @DisplayName("New dungeonWorld is loaded")
     void loadDungeonCheckIfNewDungeonIsLoaded() {
         assertNotEquals(dungeonOld, dungeonSpy);
     }
 
     @Test
-    @DisplayName("Check if the new dungeon is the one which was initiated")
+    @DisplayName("New dungeon is the one which was initiated")
     void loadDungeonCheckNewDungeon() {
         assertEquals(dungeonSpy, levelControllerSpy.getDungeon());
     }
 
     @Test
-    @DisplayName("Check if the right Methods were called in loadDungeon")
+    @DisplayName("Right Methods were called in loadDungeon")
     void loadDungeonCheckIfMethodsGotCalled() {
         verify(dungeonSpy).makeConnections();
         verify(mainController, times(1)).onLevelLoad();
@@ -62,17 +68,27 @@ class LevelControllerTest {
 
     // loadDungeon END
 
-    // TODO: Implement
     @Test
-    @Disabled
-    void update() {
+    @DisplayName("Next stage is triggered and draw is called")
+    void updateWithNextLevelTriggeredTrue() {
         levelControllerSpy.triggerNextStage();
+        doNothing().when(levelControllerSpy).draw();
         levelControllerSpy.update();
+        assertNotEquals(dungeonSpy, levelControllerSpy.getDungeon());
         verify(levelControllerSpy, times(1)).draw();
     }
 
     @Test
-    @DisplayName("Check for trigger tile with tile that is a trigger")
+    @DisplayName("Next stage is not triggered and draw is called")
+    void updateWithNextLevelTriggeredFalse() {
+        doNothing().when(levelControllerSpy).draw();
+        levelControllerSpy.update();
+        assertEquals(dungeonSpy, levelControllerSpy.getDungeon());
+        verify(levelControllerSpy, times(1)).draw();
+    }
+
+    @Test
+    @DisplayName("Trigger tile with tile that is a trigger")
     void checkForTriggerTrue() {
         Point p = new Point(5.0f, 5.0f);
         Tile tile = new Tile(Tile.Type.WALL,5,5);
@@ -81,7 +97,7 @@ class LevelControllerTest {
     }
 
     @Test
-    @DisplayName("Check for trigger tile with tile that is a trigger")
+    @DisplayName("Trigger tile with tile that is a trigger")
     void checkForTriggerFalse() {
         Point p = new Point(5.0f, 5.0f);
         Tile tile = new Tile(Tile.Type.WALL,6,6);
@@ -89,11 +105,11 @@ class LevelControllerTest {
         assertFalse(levelControllerSpy.checkForTrigger(p));
     }
 
-    // TODO: Implement
     @Test
-    @Disabled
+    @DisplayName("renderFloor() and renderWalls() get called")
     void draw() {
         levelControllerSpy.draw();
-
+        verify(dungeonSpy).renderFloor(isA(SpriteBatch.class));
+        verify(dungeonSpy).renderWalls(isA(Integer.class), isA(Integer.class), isA(SpriteBatch.class));
     }
 }
