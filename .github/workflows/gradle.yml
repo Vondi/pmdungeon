@@ -21,7 +21,14 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+
     - name: Build with Gradle
       run: ./gradlew build
+
+    - name: PMD Source Code Analyzer Action
+      uses: sfdx-actions/setup-pmd@v1
+      with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'

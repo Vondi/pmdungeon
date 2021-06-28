@@ -9,7 +9,7 @@ pmd {
     ignoreFailures(true)
 }
 
-sourceCompatibility = 1.11
+sourceCompatibility = 1.8
 
 sourceSets.main.java.srcDirs = ["src"]
 mainClassName = "de.pmdungeon.desktop.Main"
