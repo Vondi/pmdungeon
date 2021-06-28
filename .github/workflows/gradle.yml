@@ -31,9 +31,12 @@ jobs:
       needs: build
       runs-on: ubuntu-latest
       steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+        
       - uses: sfdx-actions/setup-pmd@v1
       - name: Publish Test Report
-        run: pmd -d ./pmdungeon/src/de/pmdungeon/game/Controller/ -R java-unusedcode -f text
+        run: ./gradlew pmdMain
         
 
   JUnitTests:
