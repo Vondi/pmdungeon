@@ -63,14 +63,6 @@ jobs:
           echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
           echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
           
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v7
-        with:
-          author_name: timonBusch
-          author_email: timon.buschendorf@gmx.de
-          message: 'Your commit message'
-          add: '.github/badges/jacoco.svg'
-
   
       - name: Upload JaCoCo coverage report
         uses: actions/upload-artifact@v2
