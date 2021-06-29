@@ -55,35 +55,14 @@ jobs:
 
   PMD:
     name: PMD Static Code Analysis
-    permissions:
-      security-events: write
-      actions: read
-      contents: read
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-        with:
-          # Incremental diffs require fetch depth to be at 0 to grab the target branch
-          fetch-depth: '0'
-      - name: Run PMD Analyser
-        id: pmd-analysis
-        uses: synergy-au/pmd-analyser-action@v2
-        with:
-          pmd-version: '6.32.0'
-          file-path: 'src/de/pmdungeon/game/Controller/'
-          rules-path: 'category/java/codestyle.xml/UnnecessaryModifier'
-          analyse-all-code: true
-      - name: Upload results to GitHub
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: pmd-output.sarif
-      - name: No PMD Errors?
-        run: |
-          if ${{ steps.pmd-analysis.outputs.error-found }}
-          then
-            exit 3
-          fi
+      - name: Checkout Code
+        uses: actions/checkout@v1
+        
+      - name: Analyse
+        run: ./gradlew pmdMain
       
             
   JUnitTests:
