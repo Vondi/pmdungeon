@@ -133,4 +133,13 @@ class AnimationTest {
         assertEquals(knight4, animationUnderTest.getNextAnimationTexture());
     }
 
+    @Test
+    @DisplayName("Check if nextAnimationTexture returns fourth texture after frametime")
+    void getNextAnimationTextureFirstTextureAgain() {
+        for(int i=0; i <= (Constants.FRAMERATE*4)+3; i++) {
+            animationUnderTest.getNextAnimationTexture();
+        }
+        assertEquals(knight1, animationUnderTest.getNextAnimationTexture());
+    }
+
 }
