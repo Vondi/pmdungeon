@@ -64,10 +64,12 @@ public class LevelController {
      * @throws IllegalAccessException
      */
     public void loadDungeon(DungeonWorld dungeon) throws InvocationTargetException, IllegalAccessException {
-        this.dungeonWorld = dungeon;
-        this.nextLevelTriggered = false;
-        this.dungeonWorld.makeConnections();
-        onLevelLoad.invoke(klass, args);
+        if(dungeon != null) {
+            this.dungeonWorld = dungeon;
+            this.nextLevelTriggered = false;
+            this.dungeonWorld.makeConnections();
+            onLevelLoad.invoke(klass, args);
+        }
     }
 
     /**
