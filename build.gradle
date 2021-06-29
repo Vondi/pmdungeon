@@ -13,7 +13,7 @@ pmd {
 }
 
 spotbugs {
-    ignoreFailures
+    ignoreFailures = true
 }
 
 jacocoTestReport {
