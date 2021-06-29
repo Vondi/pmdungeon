@@ -12,6 +12,10 @@ pmd {
     ignoreFailures(true)
 }
 
+spotbugs {
+    ignoreFailures
+}
+
 jacocoTestReport {
     reports {
         csv.enabled(true)
