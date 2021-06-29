@@ -55,7 +55,6 @@ jobs:
 
   PMD:
     name: PMD Static Code Analysis
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
