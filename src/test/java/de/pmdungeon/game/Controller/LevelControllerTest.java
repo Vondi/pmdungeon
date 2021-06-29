@@ -66,6 +66,13 @@ class LevelControllerTest {
         verify(mainController, times(1)).onLevelLoad();
     }
 
+    @Test
+    @DisplayName("Load new dungeon with null")
+    void loadDungeonWithNull() throws InvocationTargetException, IllegalAccessException {
+        levelControllerSpy.loadDungeon(null);
+        assertEquals(dungeonSpy, levelControllerSpy.getDungeon());
+    }
+
     // loadDungeon END
 
     @Test
