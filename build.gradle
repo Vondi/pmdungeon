@@ -1,9 +1,12 @@
-apply plugin: "java"
-apply plugin: "java-library"
-apply plugin: "eclipse"
-apply plugin: "application"
-apply plugin: "pmd"
-apply plugin: "jacoco"
+plugins {
+    id "java"
+    id "java-library"
+    id "application"
+    id "eclipse"
+    id "pmd"
+    id "jacoco"
+    id "com.github.spotbugs" version "4.7.1"
+}
 
 pmd {
     ignoreFailures(true)
