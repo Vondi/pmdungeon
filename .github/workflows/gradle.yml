@@ -24,18 +24,23 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew build -x test
+      run: ./gradlew build -x test pmdMain pmdTest
     
 
   PMD:
     name: PMD Static Code Analysis
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v1
         
-      - name: Analyse
+      - name: Analyse Main
         run: ./gradlew pmdMain
+        
+      
+      - name: Analyse Test
+        run: ./gradlew pmdTest
       
             
   JUnitTests:
