@@ -24,7 +24,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew build -x test pmdMain pmdTest
+      run: ./gradlew build -x test -x pmdMain -x pmdTest
     
 
   PMD:
