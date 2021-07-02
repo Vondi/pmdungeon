@@ -14,6 +14,14 @@ pmd {
 
 spotbugs {
     ignoreFailures = true
+    onlyAnalyze = [ 'de.pmdungeon.game.*', 'de.pmdungeon.graphic.*', 'de.pmdungenon.interfaces.*' ]
+}
+
+spotbugsMain {
+    reports{
+        xml.enabled = false
+        html.enabled = true
+    }
 }
 
 jacocoTestReport {
