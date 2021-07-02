@@ -34,7 +34,7 @@ public class EntityController {
      * @param entity
      */
     public void addEntity(IEntity entity) {
-        if (!dungeonEntities.contains(entity) && entity != null)
+        if (!dungeonEntities.contains(entity))
             this.dungeonEntities.add(entity);
     }
 
