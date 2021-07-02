@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import de.pmdungeon.desktop.DesktopLauncher;
 import de.pmdungeon.game.Controller.DummyGame.MyMain;
 import de.pmdungeon.tools.Constants;
-import jdk.jfr.Description;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
